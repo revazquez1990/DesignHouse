@@ -9,6 +9,11 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::post('logout', 'Auth\LoginController@logout');
     Route::put('settings/profile', 'User\SettingsController@updateProfile');
     Route::put('settings/password', 'User\SettingsController@updatePassword');
+
+    // Upload Designs
+    Route::post('designs', 'DesignController@upload');
+    Route::put('designs/{id}', 'DesignController@update');
+    Route::delete('designs/{id}', 'DesignController@destroy');
 });
 
 // Route group for guests user only
