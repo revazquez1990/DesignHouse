@@ -4,6 +4,15 @@
 // Public routes
 Route::get('me', 'User\MeController@getMe');
 
+// get Designs
+Route::get('designs', 'DesignController@index');
+
+Route::get('designs/{id}', 'DesignController@findDesign');
+
+// get Users    
+Route::get('users', 'User\UserController@index');
+
+
 // Route group for authenticated user only
 Route::group(['middleware' => ['auth:api']], function(){
     Route::post('logout', 'Auth\LoginController@logout');
@@ -14,6 +23,16 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::post('designs', 'DesignController@upload');
     Route::put('designs/{id}', 'DesignController@update');
     Route::delete('designs/{id}', 'DesignController@destroy');
+
+    // Likes and UnLikes
+    Route::post('designs/{id}/like', 'DesignController@like');
+    Route::get('designs/{id}/liked', 'DesignController@checkIfUserHasLiked');
+
+
+    // Comments
+    Route::post('designs/{id}/comments', 'CommentController@store');
+    Route::put('comments/{id}', 'CommentController@update');
+    Route::delete('comments/{id}', 'CommentController@destroy');
 });
 
 // Route group for guests user only
